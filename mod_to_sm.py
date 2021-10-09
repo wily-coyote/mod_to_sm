@@ -37,8 +37,7 @@ def main():
 	outdir = sys.argv[2] if len(sys.argv) >= 3 else "FNF Mods on Steroids"
 	os.makedirs(outdir, exist_ok=True)
 	for cdir, dirs, files in os.walk(in_dir):
-		if (not cdir.lower().endswith("manifest")) and any([x for x in files if x.lower().endswith(".json")]):
-			
+		if (not cdir.lower().endswith("manifest")) and any([x for x in files if x.lower().endswith(".json")]):	
 			jsons.append(os.path.basename(cdir).lower())
 			jsondir = os.path.dirname(cdir)
 		if any([x for x in files if x.lower() == "inst.ogg"]):
