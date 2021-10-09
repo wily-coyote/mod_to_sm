@@ -1,0 +1,3 @@
+[submodule "fnf_to_sm"]
+	path = fnf_to_sm
+	url = https://github.com/rsrunner/fnf_to_sm.git
