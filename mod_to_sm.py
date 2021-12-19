@@ -37,7 +37,7 @@ def main():
 	outdir = sys.argv[2] if len(sys.argv) >= 3 else "FNF Mods on Steroids"
 	os.makedirs(outdir, exist_ok=True)
 	for cdir, dirs, files in os.walk(in_dir):
-		if (not cdir.lower().endswith("manifest")) and any([x for x in files if x.lower().endswith(".json")]):	
+		if (not (cdir.lower().endswith("manifest") or cdir.lower().endswith("images"))) and any([x for x in files if x.lower().endswith(".json")]):	
 			jsons.append(os.path.basename(cdir).lower())
 			jsondir = os.path.dirname(cdir)
 		if any([x for x in files if x.lower() == "inst.ogg"]):
@@ -49,6 +49,13 @@ def main():
 	for song in songs:
 		ogg = os.path.join(oggdir, song, "Inst.ogg")
 		json = os.path.join(jsondir, song, f"{song}.json")
+		if not os.path.isfile(json):
+			# try a harder diff
+			json = os.path.join(jsondir, song, f"{song}-hard.json")
+			# still doesnt exist?
+			if not os.path.isfile(json):
+				# try an easier diff
+				json = os.path.join(jsondir, song, f"{song}-easy.json")
 		song_name = fts.get_songname(json)
 		to = os.path.join(outdir, song_name)
 		os.makedirs(to, exist_ok=True)
